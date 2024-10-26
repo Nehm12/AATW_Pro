@@ -31,10 +31,14 @@ class EtablissementController extends Controller
             'data' => $etablissement
         ], 201);
     }
-
     public function index()
     {
-        $etablissements = Etablissement::all();
-        return response()->json($etablissements);
+        try {
+            $etablissements = Etablissement::all();
+            return response()->json($etablissements);
+        } catch (\Exception $e) {
+            \Log::error('Erreur de récupération des établissements: ' . $e->getMessage());
+            return response()->json(['error' => 'Erreur serveur'], 500);
+        }
     }
 }

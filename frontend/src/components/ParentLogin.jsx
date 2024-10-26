@@ -18,7 +18,7 @@ const Login = () => {
       console.log("Connexion réussie :", response.data);
       setEmail("");
       setPassword("");
-      navigate("/");
+      navigate("/dashboard");
     } catch (e) {
       console.error("Erreur lors de la connexion :", e);
       // Vérifiez si e.response existe avant d'accéder à e.response.data.message

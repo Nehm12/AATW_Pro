@@ -3,14 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
 const Register = () => {
-  // Fonction pour récupérer un cookie par son nom
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   };
 
-  // States for form fields
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [nom, setNom] = useState("");
@@ -21,12 +19,10 @@ const Register = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleRegister = async (event) => {
     event.preventDefault();
     setError(null);
 
-    // Validation des mots de passe
     if (password !== confirmPassword) {
       setError("Les mots de passe ne correspondent pas.");
       return;
@@ -47,20 +43,17 @@ const Register = () => {
         {
           headers: {
             'accept': 'application/json',
-            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'), // Récupération du cookie
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
           },
         }
       );
 
-      // Assurez-vous que la réponse contient bien les données
       if (response && response.data) {
         console.log("Inscription réussie :", response.data);
-        navigate("/login"); // Redirige vers la page de connexion après l'inscription
+        navigate("/EnfantRegister");
       }
     } catch (e) {
       console.error("Erreur lors de l'inscription :", e);
-
-      // Vérifiez si 'e.response' est défini avant d'accéder à ses propriétés
       if (e.response) {
         setError(e.response.data.message || "Une erreur s'est produite lors de l'inscription.");
       } else {
@@ -70,93 +63,91 @@ const Register = () => {
   };
 
   return (
-    <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
+    <section className="bg-gradient-to-r from-blue-400 to-indigo-600 py-20 lg:py-[120px] flex items-center justify-center min-h-screen">
       <div className="container mx-auto">
-        <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4">
-            <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10 text-center sm:px-12 md:px-[60px]">
-              <div className="mb-10 text-center md:mb-16">S'inscrire</div>
-              {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
-              <form onSubmit={handleRegister}>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    placeholder="Nom d'utilisateur"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    placeholder="Nom"
-                    value={nom}
-                    onChange={(e) => setNom(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    placeholder="Prénom"
-                    value={prenom}
-                    onChange={(e) => setPrenom(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="tel"
-                    placeholder="Téléphone"
-                    value={telephone}
-                    onChange={(e) => setTelephone(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="password"
-                    placeholder="Mot de passe"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="password"
-                    placeholder="Confirmer le mot de passe"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                  />
-                </div>
-                <div className="mb-10">
-                  <button
-                    type="submit"
-                    className="w-full px-4 py-3 bg-indigo-500 hover:bg-indigo-700 rounded-md text-white"
-                  >
-                    S'inscrire
-                  </button>
-                </div>
-              </form>
-              <p className="text-base text-[#adadad]">
-                Vous avez déjà un compte?{' '}
-                <Link to="/login" className="text-primary hover:underline">
-                  Se connecter
-                </Link>
-              </p>
-            </div>
+        <div className="flex justify-center items-center">
+          <div className="w-full max-w-[525px] bg-white shadow-lg rounded-lg py-16 px-12 text-center transition-transform hover:scale-105 duration-300">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">S'inscrire</h2>
+            {error && <p className="text-red-500 mb-4">{error}</p>} 
+            <form onSubmit={handleRegister}>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Nom d'utilisateur"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Nom"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Prénom"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="tel"
+                  placeholder="Téléphone"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="password"
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="password"
+                  placeholder="Confirmer le mot de passe"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full py-3 px-5 bg-gray-100 rounded-md border-2 border-gray-200 focus:border-indigo-500 outline-none transition duration-300 text-gray-800"
+                />
+              </div>
+              <div className="mb-10">
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 rounded-md text-white font-semibold shadow-lg hover:shadow-2xl transition duration-300"
+                >
+                  S'inscrire
+                </button>
+              </div>
+            </form>
+            <p className="text-base text-[#adadad]">
+              Vous avez déjà un compte?{' '}
+              <Link to="/login" className="text-primary hover:underline">
+                Se connecter
+              </Link>
+            </p>
           </div>
         </div>
       </div>

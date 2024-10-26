@@ -11,14 +11,8 @@ class Classe extends Model
 
     protected $fillable = [
         'nom_classe',
-        'etablissement_id',
     ];
 
-    // Relation avec l'établissement
-    public function etablissement()
-    {
-        return $this->belongsTo(Etablissement::class);
-    }
 
     // Relation avec les enfants
     public function enfants()

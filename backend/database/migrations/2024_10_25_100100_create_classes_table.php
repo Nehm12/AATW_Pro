@@ -11,11 +11,9 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('nom_classe');
-            $table->unsignedBigInteger('etablissement_id'); // Clé étrangère vers établissement
             $table->timestamps();
 
             // Définir la clé étrangère
-            $table->foreign('etablissement_id')->references('id')->on('etablissements')->onDelete('cascade');
         });
     }
 

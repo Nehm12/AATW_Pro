@@ -15,6 +15,7 @@ class Enfant extends Model
         'date_naissance',
         'parent_id',
         'classe_id',
+        'etablissement_id',
     ];
 
     // Relation avec le parent
@@ -22,6 +23,12 @@ class Enfant extends Model
     {
         return $this->belongsTo(Parent::class);
     }
+
+     // Relation avec l'établissement
+     public function etablissement()
+     {
+         return $this->belongsTo(Etablissement::class);
+     }
 
     // Relation avec la classe
     public function classe()

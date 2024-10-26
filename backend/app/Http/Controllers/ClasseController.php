@@ -13,7 +13,6 @@ class ClasseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nom_classe' => 'required|string|max:255',
-            'etablissement_id' => 'required|exists:etablissements,id', // Assurez-vous que l'établissement existe
         ]);
 
         if ($validator->fails()) {
@@ -35,7 +34,12 @@ class ClasseController extends Controller
 
     public function index()
     {
-        $classes = Classe::with('etablissement')->get(); // Récupérer les classes avec l'établissement associé
-        return response()->json($classes);
+        try {
+            $classes = Classe::all();
+            return response()->json($classes);
+        } catch (\Exception $e) {
+            \Log::error('Erreur de récupération des classes: ' . $e->getMessage());
+            return response()->json(['error' => 'Erreur serveur'], 500);
+        }
     }
 }

@@ -14,8 +14,10 @@ class EnfantController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'date_naissance' => 'required|date',
+            'etablissement_id' => 'required|exists:etablissements,id', // Assurez-vous que l'établissement existe
             'parent_id' => 'required|exists:parent,id', // Assurez-vous que le parent existe
             'classe_id' => 'required|exists:classes,id', // Assurez-vous que la classe existe
+            
         ]);
 
         if ($validator->fails()) {
