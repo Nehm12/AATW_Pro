@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Application de Getsion d'Etablissements  | Rapport sur le projet de création d'Application Web de Gestion</title>
+    <link rel="stylesheet" href="https://prismjs.com/themes/prism.css">
+	<link rel="stylesheet" href="https://prismjs.com/plugins/line-numbers/prism-line-numbers.css">
+	<link rel="stylesheet" href="prism-live.css">
+    <style>
+        .code-snippet {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            line-height: 1.5;
+            width: max-content;
+            font-weight: bold;
+          }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: hwb(329, 60%, 0%);
+            background-color: -webkit-hwb(329, 60%, 0%);
+        }
+        title
+        {
+            color: hwb(329 60% 0%);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #555;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .section {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+        flex: 1;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        }
+        
+        th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #777;
+        }
+
+        ul {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .code-block {
+            background-color: #f4f4f4;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .highlight {
+            background-color: #fffbcc;
+        }
+
+        body {
+            background-color: #f8f8f8;
+        }
+
+        .section {
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 30px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #333;
+        }
+
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .subsection {
+            margin-top: 20px;
+        ;
+        }
+
+        .subsection:first-child {
+            margin-top: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+
+        .image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Application de Gestion d'Etablissements  : Rapport sur le projet de création d'Application Web de Gestion</h1>
+
+<div class="section">
+    <h2 class="section-title">Menbres du groupe </h2>
+    <div class="content">
+    <table>
+        <tr>
+        <th>Nom</th>
+        <th>Prénoms</th>
+        <th>Filière</th>
+        </tr>
+        <tr>
+            <td>AGBOKOUN</td>
+            <td> Fortuné</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ADISSODA</td>
+            <td> Julis</td>
+            <td></td>
+        </tr>
+        <tr>
+        <td>ADONON</td>
+        <td> Jiovany</td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>AHOADI</td>
+        <td> Emmanuel</td>
+        <td>GL</td>
+        </tr>
+        <tr>
+        <td>BALOGOUN</td>
+        <td> Sobour</td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>COLLY</td>
+        <td>Christis</td>
+        <td>IM</td>
+        </tr>
+        <tr>
+            <td>GUEZODJE</td>
+            <td> Ferreol</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>HOUNBEDJI</td>
+            <td> Max-Fructueux</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>HOUNGA/td>
+            <td> Exaucé</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>HOUNMENOU</td>
+            <td> Colombe</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>LAWANI</td>
+            <td> Hamzath</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>SODJINOU</td>
+            <td> Nincy</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>TCHIAKPE</td>
+            <td>Généreux</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>SOULEYMANE</td>
+            <td> Hosny</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>TOGNINOU</td>
+            <td> Addys</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<div class="section">
+    <h2 class="section-title">Mode de fonctionnement</h2>
+
+     <div class="subsection">
+        <h3 class="subsection-title">La documentaion</h3>
+      <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénoms</th>
+                    <th>Role</th>
+                    <th>Contribution</th>
+                </tr>
+                <tr>
+                    <td>HOUNMENOU</td>
+                    <td>Colombe</td>
+                    <td>Chargé de la Documentation, Vice chef d'équipe, Rapporteur</td>
+                    <td>
+                        <ul>
+                            <li> Organisation des Réunions Visio comme présentiel </li>
+                            <li> Archivage des rapport des réunions</li>
+                            <li> Page de Rapport finale</li>
+                        </ul>
+                    </td>
+                </tr>
+        </table>
+    </div>
+    <div class="subsection">
+        <h3 class="subsection-title">Front-end</h3>
+
+      
+        <p>Constitué de quatres membres, cette équipe est chargée du design du site (HTML, CSS, JS). 
+            Ils ont été les premiers à travailler sur le projet en créant les pages nécessaires</p>
+        <h3>Contribution</h3>
+            <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénoms</th>
+                    <th>Role</th>
+                    <th>Contribution</th>
+                </tr>
+                <tr>
+                    <td>AKAKPOVI</td>
+                    <td>Mael</td>
+                    <td>Chef du Frontend</td>
+                    <td>
+                        <ul>
+                            <li> Pages de connexion et d'inscription </li>
+                            <li> Design du Logo</li>
+                            <li> CSS</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ADEMON</td>
+                    <td>Kabir</td>
+                    <td>Developpeur Frontend</td>
+                    <td>
+                        <ul>
+                            <li> Erreur 404</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>FANGNON</td>
+                    <td>Péniel</td>
+                    <td>Développeur Front-end</td>
+                    <td>
+                        <ul>
+                            <li> Pages de connexion et d'inscription </li>
+                            <li> CSS</li>
+                        </ul>
+                    </td>
+                </tr>
+                    <td>GODONOU</td>
+                    <td>Horiace</td>
+                    <td>Développeur Front-end</td>
+                    <td>
+                        <ul>
+                            <li> Expérince Utilisateur</li>
+                            <li> CSS</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        
+    </div>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Back-end</h3>
+        <p>Constitué de cinq membres, cette équipe est chargée du mettre les fonctionnalités du site.</p>
+        <h3>Contribution</h3>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénoms</th>
+                <th>Role</th>
+                <th>Contribution</th>
+            </tr>
+            <tr>
+                <td>HOUNGA</td>
+                <td>Exaucé</td>
+                <td>Chef d'équipe</td>
+                <td>
+                    <ul> 
+                        <li> Fonctionnalités Admin (100%)</li>
+                        <li> Fonctionnalités Utilisateus (100%) </li>
+                        <li> Login, Signup, Email, Gestion des comptes, etc.</li>
+                        <li> Gestion de la suggestion</li>
+                        <li> Fonctionnalités de Messagerie Instantanée</li>
+                        <li> Database Models</li>
+                        <li> Fix des Bugs</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>AGOSSA </td>
+                <td>Belmar</td>
+                <td>Developpeur Backend</td>
+                <td>
+                    <ul>
+                        <li> Fonctionnalités Messagerie (100%)</li>
+                        <li> Database Models</li>
+                         <li> Fix des Bugs</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ADANTOTODE</td>
+                <td>Daniel</td>
+                <td>Developpeur Backend</td>
+                <td>
+                    <ul>
+                       <li> Fonctionnalités Admin (50%)</li>
+                        <li> Fonctionnalités Utilisateus (100%) </li>
+                        <li> Login, Signup, Email, Gestion des comptes, etc.</li>
+                        <li>Réinitialisation de mot de passe (70%) </li>
+                        <li> Gestion de la suggestion (100%) </li>
+                        <li> Database Models</li>
+                        <li> Fix des Bugs</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>OMONWE</td>
+                <td>Grace</td>
+                <td>Developpeur Backend</td>
+                <td>
+                    <ul>
+                        <li>Réinitialisation de mot de passe (10%) </li>
+                        <li> Sécurité et confidentialité(50%) </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>YOROU</td>
+                <td>Dariff</td>
+                <td>Developpeur Backend</td>
+                <td>
+                    <ul>
+                        <li>Restructuration des Pages (100%) </li>
+                        <li> Fix des Bugs</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Travail en équipe</h3>
+        <p>Ensemble, ces equipes ont pu créer une application web de Rencontre nommé : SOULMATE en anglais qui signifie en francais Ame Soeur </p>
+        <p>Les taches sont repartis entre membres qui doivent les terminer en un temps donné, certaines taches nécessite
+            la fin d'une autre avant son commencement. S'il y a de bug, l'équipe essaie de voir les problemes et les résoudre.
+        </p>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Structure du Projet</h2>
+    <p></p>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Langages de programmation et Framework</h3>
+        <p>Cette application a été développé avec 4 langages de programmation, 2 frameworks et quelques autres technologies web :</p>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+            <li>Python</li>
+            <li>Django</li>
+            <li>BootStrap</li>
+            <li>AJAX</li>
+            <li>Datatables</li>
+        </ul>
+    </div>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Structure en Django</h3>
+        <p>Cette application dispose de trois sous applications Django pour gérer chaque fonctionalités :</p>
+        <ul>
+            <li>Account pour les pages rapides d'acceuil de connexion des utlisateurs</li>
+            <li>Chat pour a messagerie Instantanée (qui reste des imperfections à corriger)</li>
+            <li>Suggestion des utlisateurs</li>
+             <li>Notifications (Que nus avons pas pu achevé vu le temps qui nous ai donné)  </li>
+        </ul>
+    </div>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Database</h3>
+        <p>Cette application utilise les modèles Django, qui font partie du framework Django, pour interagir avec la base de données. 
+            Nous avons choisi MySQL comme système de gestion de base de données pour stocker et gérer les données.</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Instructions de déploiement</h2>
+    <p>Il est nécessaires de suivres les instruction suivantes pour assurer le bon fonctionnement de l'application :</p>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Les Premiers Pas</h3>
+        <ol>
+            <li>Obtenir le projet sur GitHub</li>
+            <ul>
+                <li>Cloner ou Telechargez le zip du projet depuis Github et extraire : <a href="https://github.com/Nehm12/PIL1_2324_1">Cliquez pour le lien du projet GitHub </a>sur la branche second</li>
+            </ul>
+            <li>Une fois sur votre PC, vous aurez le projet dans un dossier <b>PIL1_2324_1</b></li>
+            <ul>
+                <li>Ouvrez un terminal dans le dossier <b>PIL1_2324_1</b> et lancez les commandes suivantes:</li>
+                <p><b>NB:</b> Si vous n'avez pas <b>pipenv</b>, installez le en utilisant <pre class="code-snippet"><code class="language-shell">pip install pipenv</code></pre></p>
+                <li>Dans le terminal, effectuez les commandes suivantes</li>
+                    <ul>
+                        <li><pre class="code-snippet"><code class="language-shell">pipenv lock</code></pre></li>
+                        <ul>
+                            <ul>
+                                <p>Si vous rencontrez des erreurs, faites ces trois commandes:</p>
+                                <li><pre class="code-snippet"><code class="language-shell">pipenv clean</code></pre></li>
+                                <li><pre class="code-snippet"><code class="language-shell">pipenv install --skip-lock</code></pre></li>
+                                <li><pre class="code-snippet"><code class="language-shell">pipenv lock</code></pre></li>
+                            </ul>
+                        </ul>
+                        <li><pre class="code-snippet"><code class="language-shell">pipenv sync</code></pre></li>
+                        <li><pre class="code-snippet"><code class="language-shell">pipenv shell</code></pre></li>
+                    </ul>
+                <li>Configuration du Database</li>
+                <ul>
+                    <li>Creez une base de données sur votre PC (avec PHPMyAdmin, MySQL Workbench ou d'autres) et nommez le <b>rqt</b></li>
+                    <li>Importer la structure en utilisant le fichier <b>rqt.sql</b> donné</li>
+                    <ul>
+                        <li>Si vous utilisez mysql cli (terminal)<pre class="code-snippet"><code class="language-shell">mysql -u username -p rqt < chemin/vers/rqt.sql</code></pre> 
+                            Remplacez username par votre nom d'utilisateur et <b>chemin/vers/rqt.sql</b> par le chemin menant à ce fichier</li>
+                        <br>
+                        <li>Si vous utilisez PHPMyAdmin, ce dernier vous propose une interface graphique pour importer le fichier sql</li>
+                    </ul>
+                    <li>Dans le dossier <b>PIL1_2324_1</b>, lancez la commande: 
+                        <pre class="code-snippet"><code class="language-shell">python Rencontre/Rencontre/config.py</code></pre>
+                        <p>Renseignez votre nom d'utilisateur, mot de passe, hote, et port.</p>
+                        <p>NB: Entrez <b>O</b> ou <b>N</b> pour répondre à <b>Voulez vous changer ...</b></p>
+                    </li>
+                    <li>Django utilise un SECRET_KEY dans ces applications et c'est mieux si ces clés sont uniques. 
+                        Alors, lancez la commande suivante pour générer votre SECRET KEY
+                        <pre class="code-snippet"><code class="language-shell">python Recontre/Rencontre/generate_key.py</code></pre>
+                    </li>
+                </ul>
+                <li>Lancement du projet</li>
+                <p>Lancez les deux commandes suivantes pour lancer l'application</p>
+                <p>Naviguez dans le dossier <b>Account</b></p>
+                <ul>
+                    <li><pre class="code-snippet"><code class="language-shell">pipenv shell</code></pre></li>
+		    <li><pre class="code-snippet"><code class="language-shell">cd Account</code></pre></li>
+                    <p><b>Lancez le serveur</b></p>
+                    <li><pre class="code-snippet"><code class="language-shell">python manage.py runserver port </code></pre></li>
+                    <p><b>Remplacez port par le port que vous voulez ou laissez vide</b></p>
+                </ul>
+                <li>Accedez au projet dans un navigateur depuis
+                    <pre class="code-snippet"><code class="language-shell">localhost:port </code></pre>
+                    ou
+                    <pre class="code-snippet"><code class="language-shell">localhost </code></pre>
+                    (si vous n'avez par spécifié de port)<br><br><br>
+                    <b>Vous pouvez egalement utiliser 
+                        <pre class="code-snippet"><code class="language-shell">127.0.0.1</code></pre>
+                    </b>
+                </li>
+                <div class="image-container">
+                    <p>Apres le Lancement du projet, vous verrez aussi l'url de l'application</p>
+                </div>
+            </ul>
+        </ol>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Manuel d'utilisation</h2>
+    <p>Cette application est concue pour etre utilisé par deux groupe de personne (admin et utilisateurs)</p>
+    <p>L'interface utilisateur du site est intuitive et conviviale, permettant aux utilisateurs de naviguer facilement et de se retrouver les informations dont ils ont besoin.</p>
+
+    <div class="subsection">
+        <h3 class="subsection-title">Administrateur</h3>
+        <p>Votre compte doit être vérifié par un super admin pour pouvoir vous connecter. De même, vous devez verifier votre email pour pouvoir vous connecter</p>
+        <p>Il y a un admin intégré dans l'appli</p>
+        <ul>
+            <li>nom : Nehm</li>
+            <li>mot de passe: 18junior </li>
+        </ul>
+        
+            <p>Ici, vous pouvez gérer (ajouter, modifier, supprimer) les utislisateurs , leurs informations, leurs messages etc.</p>
+       
+    </div>
+
+    <div class="subsection">
+        <h3 class="subsection-title">4.2 Automatisation de la suggestion des partenaires</h3>
+        <p>Grâce à l'algorithme de suggestion automatique des partenaires, nous avons pu optimiser la suggestion des utlisateurs et la recherche selon certains profil recherchés, en tenant compte des disponibilités des utilisateurs et des contraintes spécifiques.</p>
+    </div>
+
+
+</div>
+
+<div class="section">
+    <h2 class="section-title">5. Conclusion</h2>
+    <p>En conclusion, le projet de crétaion d'Application Web de rencontre. Nous avons réussi à développer un système fonctionnel et performant, répondant aux besoins spécifiques du projet Integrateur. Ce projet a permis d'améliorer la rencontre et l'extensions des connaissance de ces utlisateurs .</p>
+</div>
+
+<div class="section">
+    <h2 class="section-title">6. Recommandations</h2>
+    <p>Afin d'améliorer encore davantage le site de gestion des emplois du temps, nous recommandons les actions suivantes :</p>
+    <ul>
+        <li>Continuer à recueillir les retours des utilisateurs et à les intégrer dans les mises à jour futures.</li>
+        <li>Renforcer la sécurité du système en mettant en place des mécanismes d'authentification et de contrôle d'accès plus avancés.</li>
+        <li>Améliorer les performances en optimisant les requêtes et en utilisant des techniques de mise en cache.</li>
+        <li>Élargir la portée du projet en développant des applications mobiles pour un accès facile depuis les smartphones et les tablettes.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">7. Remerciements</h2>
+    <p>Nous tenons à remercier tous les membres de l'équipe qui ont contribué à la réalisation de ce projet, ainsi que les professeurs et les responsables de l'Université IFRI pour leur soutien et leurs conseils tout au long du processus.</p>
+</div>
+
+<div class="section">
+    <h2 class="section-title">8. Références</h2>
+    <p>Voici quelques références qui ont été utiles lors du développement du projet :</p>
+    <ul>
+        <li>Documentation officielle de Django : <a href="https://docs.djangoproject.com/">https://docs.djangoproject.com/</a></li>        
+
+</div>
+<script>
+    // Initialize Prism.js
+    Prism.highlightAll();
+  </script>
+<script src="prism-live.js?load=css,html,javascript"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const imageContainers = document.querySelectorAll('.image-container');
+  
+  imageContainers.forEach(function(container) {
+    const image = container.querySelector('.image');
+    
+    image.addEventListener('click', function() {
+      const modal = document.createElement('div');
+      modal.classList.add('image-modal');
+      modal.innerHTML = '<img src="' + this.src + '" alt="' + this.alt + '">';
+      
+      modal.addEventListener('click', function() {
+        modal.remove();
+      });
+      
+      document.body.appendChild(modal);
+    });
+  });
+});
+
+</script>
+
+</body>
+</html>
