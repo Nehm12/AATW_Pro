@@ -14,7 +14,7 @@ function App() {
         <header className="bg-blue-900 text-white py-4 shadow-lg">
           <div className="container mx-auto flex items-center justify-between px-4">
             <h1 className="text-3xl font-bold">
-              EducControl
+            <Link to="/" className="text-gray-200 hover:text-white">EducControl</Link>
             </h1>
             <nav className="hidden md:flex space-x-8">
               <Link to="/login" className="text-gray-200 hover:text-white">Connexion</Link>
