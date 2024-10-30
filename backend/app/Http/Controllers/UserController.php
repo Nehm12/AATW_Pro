@@ -40,6 +40,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'User registered successfully!',
+            'redirect_url' => '/EnfantRegister',  // URL pour la redirection
             'data' => $user
         ], 201);
     }
