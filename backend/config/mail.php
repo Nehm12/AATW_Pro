@@ -37,11 +37,11 @@ return [
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port' => env('MAIL_PORT', 587),  // Gmail uses port 587 for TLS encryption
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),  // Use TLS encryption
+            'username' => env('MAIL_USERNAME'),  // Your Gmail username
+            'password' => env('MAIL_PASSWORD'),  // Your Gmail password (or app-specific password if 2FA is enabled)
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -108,8 +108,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'your-email@gmail.com'),  // Your Gmail address
+        'name' => env('MAIL_FROM_NAME', 'Your App Name'),  // The name that will appear in the email
     ],
 
     /*

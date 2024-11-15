@@ -49,8 +49,10 @@ const Register = () => {
       );
 
       if (response && response.data) {
-        console.log("Inscription réussie :", response.data);
-        navigate("/EnfantRegister");
+        console.log("Réponse de l'API :", response.data); // Affiche toute la réponse
+        const parentId = response.data.data.id; // Vérifie si l'ID est dans `response.data.id`
+        console.log("ID du parent récupéré:", parentId); // Vérifie l'ID du parent
+        navigate("/EnfantRegister", { state: { parentId } });
       }
     } catch (e) {
       console.error("Erreur lors de l'inscription :", e);

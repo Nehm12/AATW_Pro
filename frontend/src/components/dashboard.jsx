@@ -8,61 +8,7 @@ const Dashboard = () => {
   };
 
   const classes = [
-    {
-      annee: "2019",
-      classe: "CI",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "15.0",
-      moyenne_2e_trim: "14.5",
-      moyenne_3e_trim: "16.0",
-      moyenne_annuelle: "15.2",
-      rang: "5",
-      observation: "Bon travail"
-    },
-    {
-      annee: "2020",
-      classe: "CP",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "14.0",
-      moyenne_2e_trim: "15.0",
-      moyenne_3e_trim: "14.5",
-      moyenne_annuelle: "14.5",
-      rang: "10",
-      observation: "Peut mieux faire"
-    },
-    {
-      annee: "2021",
-      classe: "CE1",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "16.0",
-      moyenne_2e_trim: "15.5",
-      moyenne_3e_trim: "17.0",
-      moyenne_annuelle: "16.5",
-      rang: "3",
-      observation: "Excellent"
-    },
-    {
-      annee: "2022",
-      classe: "CE2",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "15.5",
-      moyenne_2e_trim: "16.0",
-      moyenne_3e_trim: "15.5",
-      moyenne_annuelle: "15.7",
-      rang: "7",
-      observation: "Bien"
-    },
-    {
-      annee: "2023",
-      classe: "CM1",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "17.0",
-      moyenne_2e_trim: "18.0",
-      moyenne_3e_trim: "16.5",
-      moyenne_annuelle: "17.2",
-      rang: "2",
-      observation: "Très bon"
-    },
+    
     {
       annee: "2024",
       classe: "CM2",
@@ -74,39 +20,7 @@ const Dashboard = () => {
       rang: "1",
       observation: "Excellent travail"
     },
-    {
-      annee: "2025",
-      classe: "6ème",
-      etablissement: "Collège B",
-      moyenne_1er_trim: "16.5",
-      moyenne_2e_trim: "17.0",
-      moyenne_3e_trim: "16.0",
-      moyenne_annuelle: "16.5",
-      rang: "4",
-      observation: "Bon résultat"
-    },
-    {
-      annee: "2026",
-      classe: "5ème",
-      etablissement: "Collège B",
-      moyenne_1er_trim: "15.0",
-      moyenne_2e_trim: "16.0",
-      moyenne_3e_trim: "15.5",
-      moyenne_annuelle: "15.5",
-      rang: "6",
-      observation: "Doit s'améliorer"
-    },
-    {
-      annee: "2027",
-      classe: "4ème",
-      etablissement: "Collège B",
-      moyenne_1er_trim: "17.5",
-      moyenne_2e_trim: "18.0",
-      moyenne_3e_trim: "17.0",
-      moyenne_annuelle: "17.5",
-      rang: "3",
-      observation: "Très bon élève"
-    },
+  
   ];
 
   const handleDownloadCard = () => {

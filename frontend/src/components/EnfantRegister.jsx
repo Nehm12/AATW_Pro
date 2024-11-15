@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const RegisterEnfant = ({ parentId }) => {
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
+// Définir la fonction getCookie
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
+const RegisterEnfant = () => {
+  const location = useLocation();
+  const parentId = location.state?.parentId; // Récupérer l'ID du parent
+
+
+  // Vérifier si parentId est manquant
+if (!parentId) {
+    return <div>Erreur : ID du parent manquant. Impossible de procéder à l'enregistrement de l'enfant.</div>;
+}
 
   const [formData, setFormData] = useState({
     nom: "",
@@ -15,7 +25,7 @@ const RegisterEnfant = ({ parentId }) => {
     date_naissance: "",
     etablissement_id: "",
     classe_id: "",
-    parent_id: String(parentId)
+    parent_id: parentId || "", // Assurez-vous que l'ID du parent est bien assigné
   });
 
   const [etablissements, setEtablissements] = useState([]);
@@ -54,22 +64,21 @@ const RegisterEnfant = ({ parentId }) => {
       setError("Veuillez remplir tous les champs obligatoires.");
       return;
     }
-
-    for (const key in formData) {
-      if (typeof formData[key] !== 'string') {
-        setError(`Le champ ${key} doit être une chaîne.`);
-        return;
-      }
-    }
+      // Vérification de la structure des données
+      console.log("Données envoyées :", formData);
 
     try {
       const response = await axios.post('/api/enfant/create', formData, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+          'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),  // Utilisation de la fonction getCookie
         },
       });
+
+
+    console.log("Réponse API:", response.data); // Ajout du log pour la réponse API
+
 
       if (response && response.data) {
         setFormData({
@@ -84,6 +93,7 @@ const RegisterEnfant = ({ parentId }) => {
         navigate("/dashboard");
       }
     } catch (e) {
+      console.log("Erreur API:", e.response?.data || e.message); 
       setError(e.response?.data?.message || "Une erreur s'est produite lors de l'inscription.");
     }
   };
