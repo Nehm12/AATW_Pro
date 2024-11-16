@@ -36,4 +36,21 @@ class EnfantController extends Controller
             'data' => $enfant
         ], 201);
     }
+
+    public function index()
+{
+    // Vérifier si un parent_id est passé et filtrer en fonction de ça
+    $parent_id = request()->query('parent_id'); // Assumer que 'parent_id' est un paramètre optionnel
+
+    if ($parent_id) {
+        // Récupérer les enfants du parent spécifié
+        $enfants = Enfant::where('parent_id', $parent_id)->get();
+        $enfants = Enfant::with(['classe', 'etablissement'])->where('parent_id', $parent_id)->get();
+    } else {
+        // Si aucun parent_id n'est spécifié, récupérer tous les enfants
+        $enfants = Enfant::all();
+    }
+
+    return response()->json($enfants);
+}
 }

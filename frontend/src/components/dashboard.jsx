@@ -1,27 +1,26 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Dashboard = () => {
-  const studentInfo = {
-    nom: 'Dupont',
-    prenom: 'Jean',
-    date_naissance: '2017-05-15',
-  };
+  const [enfants, setEnfants] = useState([]); // Pour stocker les données des enfants
+  const [error, setError] = useState(null); // Pour gérer les erreurs
 
-  const classes = [
-    
-    {
-      annee: "2024",
-      classe: "CM2",
-      etablissement: "École Primaire A",
-      moyenne_1er_trim: "18.0",
-      moyenne_2e_trim: "17.5",
-      moyenne_3e_trim: "18.5",
-      moyenne_annuelle: "18.0",
-      rang: "1",
-      observation: "Excellent travail"
-    },
-  
-  ];
+  // Effectuer la requête à l'API lorsque le composant est monté
+  useEffect(() => {
+    const fetchEnfants = async () => {
+      try {
+        // Assure-toi d'envoyer les cookies si nécessaire pour l'authentification
+        const response = await axios.get('http://127.0.0.1:8000/api/enfants', {
+          withCredentials: true, // Permet d'envoyer les cookies avec chaque requête
+        });
+        setEnfants(response.data); // Stocker les enfants dans l'état
+      } catch (e) {
+        setError("Impossible de récupérer les enfants.");
+      }
+    };
+
+    fetchEnfants();
+  }, []);
 
   const handleDownloadCard = () => {
     console.log("Téléchargement de la carte d'élève...");
@@ -42,15 +41,26 @@ const Dashboard = () => {
                 <h2 className="text-2xl font-bold">Parcours Académique</h2>
                 <span className="text-4xl">📚</span>
               </div>
-              
+
+              {/* Afficher les informations des enfants si elles existent */}
+              {error && <p className="text-red-500">{error}</p>} {/* Si une erreur se produit */}
+
               <div className="flex justify-center mb-6">
-                <div>
-                  <p><strong>Nom :</strong> {studentInfo.nom}</p>
-                  <p><strong>Prénom :</strong> {studentInfo.prenom}</p>
-                  <p><strong>Date de naissance :</strong> {studentInfo.date_naissance}</p>
-                </div>
+                {/* Affichage des enfants */}
+                {enfants.length > 0 ? (
+                  enfants.map((enfant) => (
+                    <div key={enfant.id} className="mb-4">
+                      <p><strong>Nom :</strong> {enfant.nom}</p>
+                      <p><strong>Prénom :</strong> {enfant.prenom}</p>
+                      <p><strong>Date de naissance :</strong> {new Date(enfant.date_naissance).toLocaleDateString()}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>Aucun enfant trouvé.</p>
+                )}
               </div>
 
+              {/* Table des résultats scolaires */}
               <table className="min-w-full bg-white border border-gray-200 mb-6">
                 <thead>
                   <tr className="bg-gray-200">
@@ -66,19 +76,28 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {classes.map((item, index) => (
-                    <tr key={index} className="hover:bg-gray-100">
-                      <td className="py-2 border border-gray-300">{item.annee}</td>
-                      <td className="py-2 border border-gray-300">{item.classe}</td>
-                      <td className="py-2 border border-gray-300">{item.etablissement}</td>
-                      <td className="py-2 border border-gray-300">{item.moyenne_1er_trim}</td>
-                      <td className="py-2 border border-gray-300">{item.moyenne_2e_trim}</td>
-                      <td className="py-2 border border-gray-300">{item.moyenne_3e_trim}</td>
-                      <td className="py-2 border border-gray-300">{item.moyenne_annuelle}</td>
-                      <td className="py-2 border border-gray-300">{item.rang}</td>
-                      <td className="py-2 border border-gray-300">{item.observation}</td>
-                    </tr>
-                  ))}
+                  {/* Affichage des données de chaque enfant */}
+                  {enfants.length > 0 ? (
+                    enfants.map((enfant) => (
+                      <tr key={enfant.id} className="hover:bg-gray-100">
+                        <td className="py-2 border border-gray-300">{enfant.annee || 2024}</td>
+                        <td className="py-2 border border-gray-300 w-[150px]">
+                        {enfant.classe?.nom || "Classe non assignée"}
+                        </td>
+                        <td className="py-2 border border-gray-300 w-[300px]">
+                        {enfant.etablissement?.nom || "Établissement non assigné"}
+                        </td>
+                        <td className="py-2 border border-gray-300">{enfant.moyenne_1er_trim || "00"}</td>
+                        <td className="py-2 border border-gray-300">{enfant.moyenne_2e_trim || "00"}</td>
+                        <td className="py-2 border border-gray-300">{enfant.moyenne_3e_trim || "00"}</td>
+                        <td className="py-2 border border-gray-300">{enfant.moyenne_annuelle || "00"}</td>
+                        <td className="py-2 border border-gray-300">{enfant.rang || "00"}</td>
+                        <td className="py-2 border border-gray-300">{enfant.observation || "Aucune"}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr><td colSpan="12">Aucune donnée disponible</td></tr>
+                  )}
                 </tbody>
               </table>
 
@@ -87,7 +106,7 @@ const Dashboard = () => {
                   onClick={handleViewInfo}
                   className="mr-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-md text-white"
                 >
-                  Vérifier les informations
+                  Télécharger la fiche d'inscription
                 </button>
                 <button 
                   onClick={handleDownloadCard}

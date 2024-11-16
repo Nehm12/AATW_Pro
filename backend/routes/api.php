@@ -29,7 +29,7 @@ Route::post('/register', [UserController::class, 'register']);
 
 // Routes pour l'Enfant
 Route::post('/enfant/create', [EnfantController::class, 'register']);
-Route::get('/enfants', [EnfantController::class, 'index']); // Pour récupérer tous les enfants
+Route::get('/enfants', [EnfantController::class, 'index']);;// Pour récupérer tous les enfants
 
 // Routes pour la Classe
 Route::post('/classe/create', [ClasseController::class, 'create']);
