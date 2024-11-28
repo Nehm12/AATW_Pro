@@ -6,6 +6,9 @@ use App\Models\User; // Modèle qui pointe vers la table 'parent'
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ParentInscriptionMail;
+
 
 class UserController extends Controller
 {
@@ -29,6 +32,8 @@ class UserController extends Controller
             ], 400);
         }
 
+
+
         // Création du nouvel utilisateur
         try {
             $user = User::create([
@@ -39,6 +44,9 @@ class UserController extends Controller
                 'prenom' => $request->prenom,
                 'telephone' => $request->telephone,
             ]);
+
+            // Récupérez un utilisateur ou créez un utilisateur fictif
+            Mail::to($user->email)->send(new ParentInscriptionMail($user));
 
             // Réponse en cas de succès
             return response()->json([
