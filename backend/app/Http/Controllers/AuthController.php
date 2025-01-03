@@ -15,12 +15,25 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+        
         $user = User::where('email', $request->email)->first();
+
+        // Si l'utilisateur existe et le mot de passe est correct
         if ($user && Hash::check($request->password, $user->password)) {
+            // Authentifie l'utilisateur
             Auth::login($user);
-            return response()->json(['success' => true]);
+
+            // Vérifie le rôle de l'utilisateur
+            if ($user->role === 'admin') {
+                // Si c'est un admin, renvoyer un message spécifique
+                return response()->json(['success' => true, 'role' => 'admin']);
+            } else {
+                // Si c'est un parent, renvoyer un message spécifique
+                return response()->json(['success' => true, 'role' => 'parent']);
+            }
         }
-        return response()->json(['success' => false], 401);
+
+        // Si l'authentification échoue
+        return response()->json(['success' => false, 'message' => 'Invalid credentials'], 401);
     }
 }

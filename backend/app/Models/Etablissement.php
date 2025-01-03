@@ -19,4 +19,9 @@ class Etablissement extends Model
     {
         return $this->hasMany(Classe::class);
     }
+
+    public function niveaux()
+    {
+        return $this->belongsToMany(Niveau::class, 'etablissement_niveau');
+    }
 }

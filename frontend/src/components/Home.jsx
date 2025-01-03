@@ -49,7 +49,7 @@ const Home = () => {
         <div className="book">Livre 2</div>
       </div>
 
-      <style jsx>{`
+      <style >{`
         .student {
           margin: 20px;
           animation: bounce 1s infinite;

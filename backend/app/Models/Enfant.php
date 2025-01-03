@@ -16,6 +16,7 @@ class Enfant extends Model
         'parent_id',
         'classe_id',
         'etablissement_id',
+        'niveau_id',
     ];
 
     // Relation avec le parent
@@ -34,5 +35,10 @@ class Enfant extends Model
     public function classe()
     {
         return $this->belongsTo(Classe::class);
+    }
+
+    public function niveau()
+    {
+        return $this->belongsTo(Niveau::class, 'niveau_id');
     }
 }

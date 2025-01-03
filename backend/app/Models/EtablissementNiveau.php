@@ -5,21 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classe extends Model
+class EtablissementNiveau extends Model
 {
     use HasFactory;
+    protected $table = 'etablissement_niveau'; // Nom de la table
 
-    protected $fillable = [
-        'nom_classe',
-    ];
-
-
-    // Relation avec les enfants
-    public function enfants()
-    {
-        return $this->hasMany(Enfant::class);
-    }
-
+    // Définir les relations avec les autres modèles, par exemple:
     public function etablissement()
     {
         return $this->belongsTo(Etablissement::class);
@@ -29,6 +20,4 @@ class Classe extends Model
     {
         return $this->belongsTo(Niveau::class);
     }
-
-
 }

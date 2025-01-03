@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const Login = () => {   
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,15 +13,24 @@ const Login = () => {
     setError(null);
     
     try {
-      // Assurez-vous que l'URL est correcte
       const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
       console.log("Connexion réussie :", response.data);
+
+      // Vérification du rôle de l'utilisateur
+      const { role } = response.data;
+
+      if (role === 'admin') {
+        // Si c'est un admin, rediriger vers le tableau de bord admin
+        navigate("/admin-dashboard");
+      } else if (role === 'parent') {
+        // Si c'est un parent, rediriger vers le tableau de bord parent
+        navigate("/dashboard");
+      }
+
       setEmail("");
       setPassword("");
-      navigate("/dashboard");
     } catch (e) {
       console.error("Erreur lors de la connexion :", e);
-      // Vérifiez si e.response existe avant d'accéder à e.response.data.message
       if (e.response) {
         setError(e.response.data.message || "Email ou mot de passe incorrect");
       } else {

@@ -13,42 +13,73 @@ const RegisterEnfant = () => {
   const location = useLocation();
   const parentId = location.state?.parentId; // Récupérer l'ID du parent
 
-
-  // Vérifier si parentId est manquant
-if (!parentId) {
+  if (!parentId) {
     return <div>Erreur : ID du parent manquant. Impossible de procéder à l'enregistrement de l'enfant.</div>;
-}
+  }
 
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
     date_naissance: "",
     etablissement_id: "",
-    classe_id: "",
-    parent_id: parentId || "", // Assurez-vous que l'ID du parent est bien assigné
+    niveau_id: "",
+    parent_id: parentId || "",
   });
 
   const [etablissements, setEtablissements] = useState([]);
-  const [classes, setClasses] = useState([]);
+  const [niveaux, setNiveaux] = useState([]);
+  const [loading, setLoading] = useState(true); // Indicateur de chargement
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Fonction pour récupérer les établissements
   const fetchData = async () => {
+    setLoading(true); // Début du chargement
     try {
-      const [etablissementResponse, classeResponse] = await Promise.all([
-        axios.get('http://localhost:8000/api/etablissements', { withCredentials: true }),
-        axios.get('http://localhost:8000/api/classes', { withCredentials: true })
-      ]);
+      const etablissementResponse = await axios.get('http://localhost:8000/api/etablissements', { withCredentials: true });
 
-      setEtablissements(etablissementResponse.data.map(etab => ({ id: etab.id, nom: etab.nom_etablissement })));
-      setClasses(classeResponse.data.map(classe => ({ id: classe.id, nom: classe.nom_classe })));
+      console.log("Réponse des établissements:", etablissementResponse.data); // Vérifiez la structure de la réponse
+
+      // Accéder à 'data' dans la réponse
+      if (Array.isArray(etablissementResponse.data.data)) {
+        setEtablissements(etablissementResponse.data.data); // Utiliser 'data' qui contient le tableau d'établissements
+      } else {
+        setError("La réponse des établissements n'est pas un tableau.");
+      }
     } catch (e) {
-      setError("Impossible de charger les données. " + (e.response?.data?.message || e.message));
+      setError("Impossible de charger les établissements. " + (e.response?.data?.message || e.message));
+    } finally {
+      setLoading(false); // Fin du chargement
     }
   };
 
+  // Fonction pour récupérer les niveaux d'un établissement
+  const fetchNiveaux = async (etablissementId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/etablissements/${etablissementId}/niveaux`, { withCredentials: true });
+      
+      console.log("Réponse des niveaux pour l'établissement:", response.data); // Vérifiez les niveaux renvoyés
+
+      // Assurez-vous que la réponse contient un tableau de niveaux
+      if (Array.isArray(response.data)) {
+        setNiveaux(response.data);
+      } else {
+        setNiveaux([]); // Réinitialise les niveaux si la réponse n'est pas un tableau
+      }
+    } catch (e) {
+      setError("Impossible de charger les niveaux. " + (e.response?.data?.message || e.message));
+    }
+  };
+
+  // Lorsqu'un établissement est sélectionné, récupère les niveaux associés
+  const handleEtablissementChange = (e) => {
+    const { value } = e.target;
+    setFormData(prev => ({ ...prev, etablissement_id: value, niveau_id: "" })); // Réinitialise le niveau sélectionné
+    fetchNiveaux(value); // Récupère les niveaux associés à l'établissement sélectionné
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchData(); // Récupérer les établissements au chargement de la page
   }, []);
 
   const handleChange = (e) => {
@@ -59,44 +90,44 @@ if (!parentId) {
   const handleRegister = async (event) => {
     event.preventDefault();
     setError(null);
-
-    if (!formData.nom || !formData.prenom || !formData.date_naissance || !formData.etablissement_id || !formData.classe_id) {
+  
+    console.log("Données envoyées :", formData); // Vérifiez ce qui est envoyé
+  
+    if (!formData.nom || !formData.prenom || !formData.date_naissance || !formData.etablissement_id || !formData.niveau_id) {
       setError("Veuillez remplir tous les champs obligatoires.");
       return;
     }
-      // Vérification de la structure des données
-      console.log("Données envoyées :", formData);
-
+  
     try {
       const response = await axios.post('/api/enfant/create', formData, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),  // Utilisation de la fonction getCookie
+          'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'), // Utilisation de la fonction getCookie
         },
       });
-
-
-    console.log("Réponse API:", response.data); // Ajout du log pour la réponse API
-
-
+  
       if (response && response.data) {
         setFormData({
           nom: "",
           prenom: "",
           date_naissance: "",
           etablissement_id: "",
-          classe_id: "",
+          niveau_id: "",
           parent_id: parentId,
         });
         fetchData();
         navigate("/dashboard");
       }
     } catch (e) {
-      console.log("Erreur API:", e.response?.data || e.message); 
       setError(e.response?.data?.message || "Une erreur s'est produite lors de l'inscription.");
     }
   };
+  
+
+  if (loading) {
+    return <div>Chargement des établissements...</div>; // Affiche un message de chargement
+  }
 
   return (
     <section className="bg-gradient-to-r from-blue-400 to-indigo-600 py-20 lg:py-[120px] flex items-center justify-center min-h-screen">
@@ -148,47 +179,52 @@ if (!parentId) {
               </div>
 
               <div className="mb-6">
-                <select
+              <select
                   name="etablissement_id"
                   value={formData.etablissement_id}
-                  onChange={handleChange}
+                  onChange={handleEtablissementChange}
                   className="border-[#E9EDF4] w-full rounded-md border bg-gray-100 py-3 px-5 text-base text-body-color outline-none focus:border-indigo-500 transition duration-300"
                   required
                 >
                   <option value="">Sélectionnez l'établissement</option>
-                  {etablissements.map(etab => (
-                    <option key={etab.id} value={etab.id}>
-                      {etab.nom}
-                    </option>
-                  ))}
+                  {Array.isArray(etablissements) && etablissements.length > 0 ? (
+                    etablissements.map((etab) => (
+                      <option key={etab.id} value={etab.id}>
+                        {etab.nom_etablissement} {/* Assurez-vous que 'nom_etablissement' est une chaîne */}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>Aucun établissement trouvé</option>
+                  )}
                 </select>
-              </div>
 
-              <div className="mb-6">
                 <select
-                  name="classe_id"
-                  value={formData.classe_id}
+                  name="niveau_id"
+                  value={formData.niveau_id}
                   onChange={handleChange}
                   className="border-[#E9EDF4] w-full rounded-md border bg-gray-100 py-3 px-5 text-base text-body-color outline-none focus:border-indigo-500 transition duration-300"
                   required
                 >
-                  <option value="">Sélectionnez une classe</option>
-                  {classes.map(cls => (
-                    <option key={cls.id} value={cls.id}>
-                      {cls.nom}
-                    </option>
-                  ))}
+                  <option value="">Sélectionnez un niveau</option>
+                  {Array.isArray(niveaux) && niveaux.length > 0 ? (
+                    niveaux.map((niveau) => (
+                      <option key={niveau.id} value={niveau.id}>
+                        {niveau.nom_niveau} {/* Assurez-vous que 'nom_niveau' est une chaîne */}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>Aucun niveau disponible pour cet établissement</option>
+                  )}
                 </select>
+
               </div>
 
-              <div className="mb-10">
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 rounded-md text-white font-semibold shadow-lg hover:shadow-2xl transition duration-300"
-                >
-                  Inscrire l'enfant
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="bg-indigo-600 text-white rounded-md py-3 px-6 hover:bg-indigo-700 transition duration-300 w-full"
+              >
+                S'inscrire
+              </button>
             </form>
           </div>
         </div>
