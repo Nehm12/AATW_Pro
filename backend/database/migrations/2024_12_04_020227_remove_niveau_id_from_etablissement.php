@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        // Supprimer la colonne niveau_id de la table etablissements
-        Schema::table('etablissements', function (Blueprint $table) {
-            $table->dropColumn('niveau_id');
+            Schema::table('etablissements', function (Blueprint $table) {
+                // Supprimer la contrainte de clé étrangère
+                $table->dropForeign(['niveau_id']);
+                
+                // Supprimer la colonne
+                $table->dropColumn('niveau_id');
+        
+
         });
     }
 
